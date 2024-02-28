@@ -11,6 +11,7 @@
 # rules applied: stick to the essential set of packages (to reduce dependencies and avoid masking issues)
 # additional special-purpose libraries should be loaded in the script that uses them
 start_time <- Sys.time()
+library(devtools) # since this is needed to source this script remotely, needs to check masking behaviour
 library( caTools ) #for the function runmean
 library( limSolve ) #for solving constrained linear least squares
 library( sparsevar ) #for computing the spectral radius
