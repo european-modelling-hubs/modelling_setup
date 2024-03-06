@@ -109,9 +109,7 @@ if ("Tahoma" %in% extrafont::fonts()) {
                              legend.key.width = ggplot2::unit(0.8, "cm"),
                              legend.key.size = ggplot2::unit(0.4, "cm"))
 
-
 # overriding function defaults
-ggplot <- function(...) ggplot2::ggplot(...) + scale_color_brewer(palette="Set3")
 geom_interval <- function(...) ggdist::geom_interval(...,alpha=0.4)
 geom_lineribbon <- function(...) ggdist::geom_lineribbon(...,alpha=0.4)
 geom_ribbon <- function(...) ggplot2::geom_ribbon(...,alpha=0.4)
@@ -126,9 +124,19 @@ mstand <- function(v){
   mout <- v/sum(v)
   return(mout)
 }
-# return the last element of a vector
-mlast <- function(v ){
+# return the last element(s) of a vector
+mlast <- function(v , n=1 ){
   mout = v[length(v)]
+  if (n>1) {
+    last_element = length(v)
+    used_n = n
+    if (n > length(v)) {
+      used_n = min(length(v),n)
+      cat(red("mlast uses a smaller n"))
+    }
+    first_element = last_element - used_n + 1
+    mout = v[first_element:last_element]
+  }
   return(mout)
 }
 # return the first element of a vector
