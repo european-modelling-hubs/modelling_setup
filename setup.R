@@ -263,6 +263,24 @@ column_stats_ingroups = function( df , mycolumn,mygroup , ... ) {
   return(mysumm)
 }
 
+source("obtain_demography.R") # Load obtain_demopgraphy function
+obtain_EU_populations <- function(){
+  countries_EU = c( "Austria", "Croatia", "Denmark", "France", "Greece", 
+                    "Ireland", "Latvia", "Romania", "Spain", "Belgium", 
+                    "Bulgaria",  "Cyprus", "Czechia", "Estonia", "Finland",  
+                    "Germany", "Hungary", "Iceland", "Italy", "Liechtenstein", 
+                    "Lithuania", "Luxembourg", "Malta","Netherlands",   "Norway", 
+                    "Poland", "Portugal", "Slovakia", "Slovenia", "Sweden" ) 
+  
+  df_pop <- NULL
+  for (country in countries_EU){
+    pop <- obtain_demography(country)
+    df <- as.data.frame(list(country_long = country, population = as.integer(sum(pop))))
+    df_pop <- bind_rows(df_pop, df)
+  }
+  return( df_pop )
+}
+
 # very end: timing
 end_time <- Sys.time()
 cat("Run time setup01.R :", round(end_time - start_time,2) , "sec")
