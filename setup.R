@@ -209,17 +209,17 @@ EU_short <- function(name_long,greece="GR" # or "EL
   
   return(name_short)
 }
-#name_short=c("DE","PL","DE","GR"); EU_long(name_short,"EL")
+#name_short=c("DE","PL","DE","GR"); EU_long(name_short)
 EU_long <- function(name_short) {
   name_long <- name_short
   for (i in 1:length(name_long)) {
     x <- name_short[i]
     if (x == "EL") x <- "GR"
-    ind <- which(EU.countries_short %in% x)
+    ind <- which(countries_short %in% x)
     if (is_empty(ind)) {
       name_long[i] <- x
     } else {
-      name_long[i] <- EU.countries[ind]
+      name_long[i] <- countries[ind]
     }
   }
   return(name_long)
